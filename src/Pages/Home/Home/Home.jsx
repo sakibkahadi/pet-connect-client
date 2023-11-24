@@ -3,6 +3,7 @@ import Banner from "../Banner/Banner";
 import Navbar from "../Navbar/Navbar";
 import PetsCategory from "../PetsCategory/PetsCategory";
 import CallToAction from "../CallToAction/CallToAction";
+import AboutUs from "../AboutUs/AboutUs";
 
 const Home = () => {
     return (
@@ -21,6 +22,9 @@ const Home = () => {
             </div>
             <div className="mb-12">
                 <CallToAction></CallToAction>
+            </div>
+            <div className="mb-12">
+                <AboutUs/>
             </div>
         </div>
     );

@@ -1,10 +1,12 @@
 import MainTitle from "../../../components/MainTitle";
+import CallToActionBanner from "./CallToActionBanner";
 
 
 const CallToAction = () => {
     return (
-        <div>
-            <MainTitle heading="Change a Life, Adopt a Pet"></MainTitle>
+        <div >
+            <div className="mb-12"><MainTitle  heading="Change a Life, Adopt a Pet"></MainTitle></div>
+            <CallToActionBanner></CallToActionBanner>
         </div>
     );
 };
