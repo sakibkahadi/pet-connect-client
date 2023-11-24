@@ -7,7 +7,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        roboto: "'Roboto', sans-serif", // Adds a new `font-display` class
+        roboto: "'Roboto', sans-serif", // Adds a new `font-display` class,
+        italic: "'Hachi Maru Pop', cursive"
       }
     }
   },
