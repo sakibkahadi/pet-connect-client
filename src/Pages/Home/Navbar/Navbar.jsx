@@ -2,18 +2,28 @@
 import { NavLink } from "react-router-dom";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { useState } from "react";
+import useAuth from "../../../hooks/useAuth";
 
 const Navbar = () => {
-   
+   const {user, logOut} = useAuth()
     const [open, setOpen] = useState(false)
+    const handleLogOut = () => {
+        logOut()
+            .then()
+            .catch(error => console.log(error))
+    }
     const navLinks = <>
         <li><NavLink   to='/'>Home</NavLink></li>
-        <li><NavLink to='/petListing'>Pet Listing</NavLink></li>
-        <li><NavLink to='/donationCampaigns'>Donation Campaign</NavLink></li>
-        <li><NavLink to='/login'>Login</NavLink></li>
-        
+        {user?.email ?<>
+            <div className="lg:flex">
+            <span><li><NavLink to='/petListing'>Pet Listing</NavLink></li></span>
+            <span> <li><NavLink to='/donationCampaigns'>Donation Campaign</NavLink></li></span>
+            <span><li><button  onClick={handleLogOut}>LogOut</button></li></span>
+        </div>
+        </>:<li><NavLink to='/login'>Log In</NavLink></li> 
+        }
     </>
-   
+    
     return (
         <div className="navbar">
             <div className="navbar-start    ">
@@ -44,7 +54,25 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                
+            {user && <div className="dropdown dropdown-end">
+                        <label tabIndex={0} className="btn m-1">profile</label>
+                        <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box ">
+                            <div className="card w-28 ">
+                                <div className="card-body space-y-2">
+                                    <div className="flex justify-center">
+
+                                        {
+                                            user.photoURL && <img className="h-10 w-10 rounded-full " src={user.photoURL} alt="profile pic" />
+
+                                        }
+                                    </div>
+                                    <p>{user.displayName}</p>
+
+                                </div>
+                            </div>
+
+                        </ul>
+                    </div>}
             </div>
         </div>
     );
