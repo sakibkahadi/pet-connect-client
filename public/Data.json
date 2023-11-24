@@ -1,0 +1,18 @@
+[
+    {
+      "category": "cats",
+      "categoryImage": "https://i.ibb.co/fGKDTz3/cats.jpg"
+    },
+    {
+      "category": "fish",
+      "categoryImage": "https://i.ibb.co/bRWzzSH/fish.jpg"
+    },
+    {
+      "category": "rabbits",
+      "categoryImage": "https://i.ibb.co/K6dhTmN/rabbits.jpg"
+    },
+    {
+      "category": "dogs",
+      "categoryImage": "https://i.ibb.co/2dT1mfq/dogs.jpg"
+    }
+  ]
