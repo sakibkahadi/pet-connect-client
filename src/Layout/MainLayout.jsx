@@ -5,10 +5,10 @@ import Navbar from "../Pages/Home/Navbar/Navbar";
 const MainLayout = () => {
     return (
         <div >
-            <div className="mt-10 mb-12">
+            <div className="pt-10 mb-24">
             <Navbar ></Navbar>
             </div>
-            <Outlet></Outlet>
+            <div ><Outlet></Outlet></div>
         </div>
     );
 };

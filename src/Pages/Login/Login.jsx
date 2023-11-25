@@ -2,19 +2,21 @@ import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import Swal from "sweetalert2";
-import { FcGoogle } from "react-icons/fc";
+
 
 import useAuth from "../../hooks/useAuth";
 import Title from "../../components/Title";
-const Login = () => {
 
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+import { FaGoogle } from "react-icons/fa";
+const Login = () => {
+    const axiosPublic = useAxiosPublic()
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const { login, googleSign } = useAuth();
     const location = useLocation();
     const navigate = useNavigate();
-
-
+    const from = location.state?.from?.pathname || "/";
 
     const handleLogin = e => {
         e.preventDefault();
@@ -22,28 +24,36 @@ const Login = () => {
         login(email, password)
             .then(result => {
                 console.log(result.user)
-                navigate(location?.state? location.state : '/')
+                navigate(location?.state ? location.state : '/')
             })
             .catch(() => {
                 return Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
                     text: 'Please enter valid email or password',
-                    
-                  })
+
+                })
             })
 
     }
-    const handleGoogleSignIn = () => {
-    
+
+    const handleGoogleSign = () => {
         googleSign()
             .then(result => {
-                console.log(result.user)
-                navigate(location?.state? location.state : '/')
+                console.log(result)
+                const userInfo = {
+                    email: result.user?.email,
+                    name: result.user?.displayName,
+                    role: 'user'
+                }
+                axiosPublic.post('/users', userInfo)
+                    .then(res => {
+                        console.log(res.data)
+                        navigate(from, { replace: true })
+                    })
             })
-            .catch((error) => console.log(error))
+            .catch(err => console.log(err))
     }
-
 
     return (
         <div className="space-y-5 mt-5 overflow-x-hidden">
@@ -75,21 +85,20 @@ const Login = () => {
                                 </div>
 
                             </form>
-                            <div className=" flex justify-center">
-                                <button className="flex gap-3 items-center btn text-xl rounded-3xl mt-5 hover:bg-slate-100 font-normal bg-white text-black w-full" onClick={handleGoogleSignIn}><span><FcGoogle /></span> <span className=" ">Google</span></button>
-                            </div>
+                            <div className="divider"></div>
+
+                            <button onClick={handleGoogleSign} className="btn">
+                                <FaGoogle className="mr-2"></FaGoogle>
+                                Google Login
+                            </button>
                         </div>
-
-
                     </div>
-
                 </div>
-
             </div>
             <div className="text-center">
                 Don't you have an account? <span className="text-[#1dc753]  font-italic uppercase "><Link to="/signUp">Register Now</Link></span>
             </div>
-            
+
 
         </div>
     );

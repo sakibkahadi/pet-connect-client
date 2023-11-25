@@ -1,5 +1,5 @@
 
-import { NavLink } from "react-router-dom";
+import {  NavLink } from "react-router-dom";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { useState } from "react";
 import useAuth from "../../../hooks/useAuth";
@@ -18,12 +18,10 @@ const Navbar = () => {
             <div className="lg:flex">
             <span><li><NavLink to='/petListing'>Pet Listing</NavLink></li></span>
             <span> <li><NavLink to='/donationCampaigns'>Donation Campaign</NavLink></li></span>
-            <span><li><button  onClick={handleLogOut}>LogOut</button></li></span>
         </div>
         </>:<li><NavLink to='/login'>Log In</NavLink></li> 
         }
     </>
-    
     return (
         <div className="navbar">
             <div className="navbar-start    ">
@@ -55,18 +53,16 @@ const Navbar = () => {
             </div>
             <div className="navbar-end">
             {user && <div className="dropdown dropdown-end">
-                        <label tabIndex={0} className="btn m-1">profile</label>
-                        <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box ">
-                            <div className="card w-28 ">
-                                <div className="card-body space-y-2">
-                                    <div className="flex justify-center">
-
-                                        {
-                                            user.photoURL && <img className="h-10 w-10 rounded-full " src={user.photoURL} alt="profile pic" />
+                        {
+                                            user?.photoURL && <img tabIndex={0} className="h-10 w-10 rounded-full " src={user?.photoURL} alt="profile pic" />
 
                                         }
-                                    </div>
-                                    <p>{user.displayName}</p>
+                        <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box ">
+                            <div className="card w-28 ">
+                                <div className="card-body space-y-2 text-[#1dc753] font-bold">
+                                    
+                                    <NavLink><button  onClick={handleLogOut}>LogOut</button></NavLink>
+                                    <NavLink to="/dashboard"><button >Dashboard</button></NavLink>
 
                                 </div>
                             </div>
