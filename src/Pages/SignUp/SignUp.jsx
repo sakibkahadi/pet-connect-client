@@ -1,8 +1,6 @@
-import {  useState } from "react";
-import Swal from "sweetalert2";
 
+import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router-dom";
-import { updateProfile } from "firebase/auth";
 import useAuth from "../../hooks/useAuth";
 import MainTitle from "../../components/MainTitle";
 import Title from "../../components/Title";
@@ -16,9 +14,8 @@ const image_hosting_api =  `https://api.imgbb.com/1/upload?key=${image_hosting_k
 const SignUp = () => {
     const axiosPublic = useAxiosPublic()
     const { createUser,  updateUserProfile  } = useAuth()
-    const [error, setError] = useState("");
    const navigate = useNavigate();
-   const {register, handleSubmit} = useForm()
+   const {register, handleSubmit, formState: { errors },} = useForm()
     const onSubmit =async(data)=> {
         const imageFile = {image: data.image[0]}
         const res = await axiosPublic.post(image_hosting_api, imageFile, {
@@ -40,6 +37,29 @@ const SignUp = () => {
                   navigate('/')
                   updateUserProfile(data.fullName, res.data.data.display_url)
                 .then(()=>{    
+                    //create users entry in the database
+                    const userInfo ={
+                        name: data.fullName,
+                        email: data.email,
+                        role: 'user'
+                    }
+                    console.log(userInfo)
+                    axiosPublic.post('/users', userInfo)
+                    .then(res=>{
+                     
+                        if(res.data.insertedId){
+                            console.log('user added to the database')
+                            
+                            Swal.fire({
+                                position: 'top',
+                                icon:'success',
+                                title: 'User Created Successfully',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                            navigate('/')
+                        }
+                    })
                 })
                 .catch(error=>console.log(error))
             })
@@ -52,19 +72,7 @@ const SignUp = () => {
             })
         }
         
-        
-
-        // if (password.length < 6) {
-        //     return setError("your password must be at least more than 6 character")  
-        // }
-        // else if (! /[A-Z]/.test(password)) {
-        //     return setError("don't have a capital letter")
-        // }
-        // else if (! /[!@#$%^&*()_+{}[\]:;<>,.?~\\|-]/.test(password)) {
-        //     return setError("password don't have a special character")
-        // }
-        // setError('');
-        
+    
     }
     return (
         <div className="space-y-5 mt-4 overflow-x-hidden ">
@@ -82,25 +90,31 @@ const SignUp = () => {
                                         <span className="label-text">Your Name</span>
                                     </label>
                                     <input type="text" {...register('fullName', {required: true})} placeholder="Your Full Name" className="input input-bordered"  />
+                                    {errors.fullName && <span className="text-red-600">Your Full Name is required</span>}
                                 </div>
                                 <div className="form-control">
                                     <label className="label">
                                         <span className="label-text">Your Image</span>
                                     </label>
                                     <input type="file" {...register('image', {required: true})}className="file-input file-input-bordered file-input-accent " />
+                                    {errors.image && <span className="text-red-600">Image is required</span>}
                                 </div>
                             </div>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Email</span>
                                 </label>
-                                <input type="email" {...register('email', {required: true})}placeholder="email" className="input input-bordered" required />
+                                <input type="email" {...register('email', {required: true})}placeholder="email" className="input input-bordered"  />
+                                {errors.email && <span className="text-red-600">Email is required</span>}
                             </div>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Password</span>
                                 </label>
-                                <input type="password" {...register('password', {required: true})}placeholder="password" className="input input-bordered" required />
+                                <input type="password" {...register('password', {required: true,  minLength: 6, maxLength: 20,})}placeholder="password" className="input input-bordered"  />
+                                {errors.password?.type === 'required' && <p className="text-red-600"> Password is required </p>}
+                            {errors.password?.type === 'minLength' && <p className="text-red-600"> Password must be 6 characters </p>}
+                            {errors.password?.type === 'maxLength' && <p className="text-red-600"> Password cannot be 20 characters </p>}
 
                             </div>
                             <div className="form-control mt-6">
@@ -112,9 +126,7 @@ const SignUp = () => {
                 </div>
             </div>
 
-            <div className="h-2">
-                {error && <p className="text-red-400 text-center">{error}</p>}
-            </div>
+          
 
             <div className="text-center">
                 Already have an account? <span className="text-[#1461c5fe] font-italic uppercase"><Link to="/login"> Log in</Link></span>
