@@ -4,11 +4,17 @@ import Select from 'react-select';
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import { useLoaderData } from "react-router-dom";
+import { useEffect } from "react";
 
 const Update = () => {
+
+    const loadedData = useLoaderData()
+    console.log(loadedData)
+
     const cloudName = 'doocqhmpu';
     const uploadPreset = 'sakibkk';
-    const {user} = useAuth()
+    const { user } = useAuth()
     const axiosSecure = useAxiosSecure()
     const uploadImage = async (file) => {
         try {
@@ -49,13 +55,13 @@ const Update = () => {
 
     const formik = useFormik({
         initialValues: {
-            petName: '',
-            petImage: null,
-            category: null,
-            petAge: '',
-            location: null,
-            short_description: '',
-            long_description: '',
+            petName: loadedData.petName,
+            petImage: loadedData.petImage,
+            category: loadedData.category ? options.find(option => option.value === loadedData.category) : null,
+            petAge: loadedData.petAge,
+            location: loadedData.location ? bangladeshCities.find(city => city.value === loadedData.location) : null,
+            short_description: loadedData.short_description,
+            long_description: loadedData.long_description,
         },
         validate: (values) => {
             const errors = {};
@@ -91,8 +97,8 @@ const Update = () => {
             return errors;
         },
         onSubmit: async (values) => {
-            console.log(user?.email)
-            const addedDate = new Date();
+            // console.log(user?.email)
+            // const addedDate = new Date();
             if (values.petImage) {
                 const imageUrl = await uploadImage(values.petImage);
                 // console.log('Image URL:', imageUrl);
@@ -104,22 +110,21 @@ const Update = () => {
                     location: values.location.value,
                     short_description: values.short_description,
                     long_description: values.long_description,
-                    addedDate: addedDate,
-                    adopted: false,
-                    email: user?.email
+                    // addedDate: addedDate,
+                    // adopted: false,
+                    // email: user?.email
                 }
-                const res = await axiosSecure.post('/pets', petInfo)
-                console.log(res.data)
-                if(res.data.insertedId){
-                    formik.resetForm();
+                const res = await axiosSecure.put(`/pets/${loadedData._id}`, petInfo)
+                if(res.data.modifiedCount){
                     Swal.fire({
                         position: "center",
                         icon: "success",
-                        title: `${values.petName} is added to the PetCollection`,
+                        title: `${values.petName} is Successfully updated`,
                         showConfirmButton: false,
                         timer: 1500
                       });
                 }
+                
             }
         },
     });
@@ -138,7 +143,7 @@ const Update = () => {
                             Pet Image
                         </label>
                         <input
-                        
+
                             id="petImage"
                             name="petImage"
                             type="file"
@@ -175,6 +180,7 @@ const Update = () => {
                         </label>
                         <Select
                             id="category"
+                            defaultValue={loadedData.category}
                             name="category"
                             onChange={(selectedOption) => formik.setFieldValue("category", selectedOption)}
                             value={formik.values.category}
@@ -252,9 +258,9 @@ const Update = () => {
                         onChange={formik.handleChange}
                         value={formik.values.long_description}
                         placeholder="Long Description" className="textarea  textarea-bordered min-h-[100px]" ></textarea>
-                        {formik.errors.long_description && formik.touched.long_description && (
-                            <div className="text-red-500">Long Description is required</div>
-                        )}
+                    {formik.errors.long_description && formik.touched.long_description && (
+                        <div className="text-red-500">Long Description is required</div>
+                    )}
 
                 </div>
 

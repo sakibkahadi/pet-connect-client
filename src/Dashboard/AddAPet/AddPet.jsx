@@ -112,6 +112,7 @@ const AddPet = () => {
                 console.log(res.data)
                 if(res.data.insertedId){
                     formik.resetForm();
+                    document.getElementById('petImage').value = '';
                     Swal.fire({
                         position: "center",
                         icon: "success",

@@ -1,27 +1,67 @@
 
 import MainTitle from "../../components/MainTitle";
-import { useQuery } from "@tanstack/react-query";
-import useAuth from "../../hooks/useAuth";
 import { MdDelete } from "react-icons/md";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { FaEdit } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import usePet from "../../hooks/usePet";
+import Swal from "sweetalert2";
 
 
 
 const MyAddedPet = () => {
-    const { user } = useAuth()
+    const [pets, refetch] = usePet()
     const axiosSecure = useAxiosSecure()
-    const { data: pets = [] } = useQuery({
-        queryKey: ['pets', user.email],
-        queryFn: async () => {
-            const res = await axiosSecure.get(`/pets?email=${user.email}`)
+    const handleDelete = id => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
 
-            return res.data
-
-        }
-    })
-
+                axiosSecure.delete(`/pets/${id}`)
+                    .then(res => {
+                        if (res.data.deletedCount > 0) {
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your file has been deleted.",
+                                icon: "success"
+                            });
+                            refetch()
+                        }
+                    })
+            }
+        });
+    }
+    const handleAdopt = id => {
+        
+        Swal.fire({
+            title: "Are you sure you want to adopt?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, I want to adopt"
+        }).then((result) => {
+            refetch()
+            if (result.isConfirmed) {
+                const petInfo ={
+                    adopted: true,
+                }
+                
+                const adoptRes = axiosSecure.patch( `/pets/${id}`,  petInfo)
+                console.log(adoptRes.data)
+                refetch()
+                
+                
+            }})
+    }
 
     return (
         <div>
@@ -59,14 +99,17 @@ const MyAddedPet = () => {
                             </td>
                             <td>{pet.category}</td>
                             <td className="text-red-600 font-bold">
-                                {pet.adapted? 'Adapted': 'Not Adapted'}
+                                {pet.adopted ? "Adopted": "Not Adopted"}
+                                
                             </td>
                             <td>
-                                <button  className="btn ">Adopt Now</button>
+                                {pet.adopted !== true ? <button onClick={() => handleAdopt(pet._id)} className="btn ">Adopt Now</button>:
+                                <button onClick={() => handleAdopt(pet._id)} disabled className="btn ">Adopt Now</button>
+                            }
                             </td>
                             <td className="flex flex-col gap-1 items-center  text-xl">
                                 <Link to={`/dashboard/myAddedPets/${pet._id}`} ><FaEdit ></FaEdit></Link>
-                                <MdDelete />
+                                <MdDelete onClick={() => handleDelete(pet._id)} />
                             </td>
                         </tr>)}
 
