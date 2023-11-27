@@ -12,6 +12,7 @@ import Update from "../Dashboard/MyAddedPet/Update";
 import CreateDonationCampaign from "../Dashboard/CreateDonationCampaign/CreateDonationCampaign";
 import MyDonationCampaigns from "../Dashboard/MyDonationCampaigns/MyDonationCampaigns";
 import PetListing from "../Pages/PetListing/PetListing";
+import PetDetails from "../Pages/PetListing/PetDetails";
 
 const Router = createBrowserRouter([
     {
@@ -36,6 +37,10 @@ const Router = createBrowserRouter([
           path:'petListing',
           element:<PetListing></PetListing>,
           loader: ()=>fetch('http://localhost:5000/pets')
+        },{
+          path: '/petListing/:id',
+          element:<PetDetails></PetDetails>
+          ,loader: ({params})=>fetch(`http://localhost:5000/pets/${params.id}`)
         }
       ]
     },

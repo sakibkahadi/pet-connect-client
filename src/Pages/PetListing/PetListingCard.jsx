@@ -1,6 +1,7 @@
+import { Link } from "react-router-dom";
 
 const PetListingCard = ({ pet }) => {
-    const { petImage, petName, petAge, location, addedDate    } = pet
+    const { _id, petImage, petName, petAge, location, addedDate    } = pet
     return (
         <div className="card w-full bg-base-100 shadow-xl">
             <figure><img src={petImage} alt="Shoes" /></figure>
@@ -12,7 +13,10 @@ const PetListingCard = ({ pet }) => {
                     
                 </div>
                 <p>{addedDate}</p>
+                <Link to={`/petListing/${_id}`}>
                 <button className="btn btn-success text-white">View Details</button>
+                </Link>
+                
             </div>
         </div>
     );
