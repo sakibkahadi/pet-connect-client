@@ -3,9 +3,12 @@ import {  NavLink } from "react-router-dom";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { useState } from "react";
 import useAuth from "../../../hooks/useAuth";
+import useAdmin from "../../../hooks/useAdmin";
 
 const Navbar = () => {
    const {user, logOut} = useAuth()
+
+   const [isAdmin] = useAdmin()
     const [open, setOpen] = useState(false)
     const handleLogOut = () => {
         logOut()
@@ -62,7 +65,9 @@ const Navbar = () => {
                                 <div className="card-body space-y-2 text-[#1dc753] font-bold">
                                     
                                     <NavLink><button  onClick={handleLogOut}>LogOut</button></NavLink>
-                                    <NavLink to="/dashboard"><button >Dashboard</button></NavLink>
+                                    {user && isAdmin && <NavLink to="/dashboard/addPet"><button >Dashboard</button></NavLink>  }
+                                    {user && !isAdmin && <NavLink to="/dashboard/myAddedPets"><button >Dashboard</button></NavLink>  }
+                                    
 
                                 </div>
                             </div>

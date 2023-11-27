@@ -41,6 +41,7 @@ const SignUp = () => {
                     const userInfo ={
                         name: data.fullName,
                         email: data.email,
+                        image: res.data.data.display_url,
                         role: 'user'
                     }
                     console.log(userInfo)

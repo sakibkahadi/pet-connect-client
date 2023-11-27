@@ -13,6 +13,7 @@ import CreateDonationCampaign from "../Dashboard/CreateDonationCampaign/CreateDo
 import MyDonationCampaigns from "../Dashboard/MyDonationCampaigns/MyDonationCampaigns";
 import PetListing from "../Pages/PetListing/PetListing";
 import PetDetails from "../Pages/PetListing/PetDetails";
+import AllUsers from "../Dashboard/AllUsers/AllUsers";
 
 const Router = createBrowserRouter([
     {
@@ -50,6 +51,7 @@ const Router = createBrowserRouter([
       element:<PrivateRoute> <Dashboard/></PrivateRoute> ,
       errorElement:<ErrorPage/>,
       children:[
+        // users 
         {
           path:'addPet',
           element:<AddPet></AddPet>
@@ -70,7 +72,17 @@ const Router = createBrowserRouter([
           path:'myDonatioCampaign',
           element:<MyDonationCampaigns/>,
           
-        }
+        },
+
+        // admins
+        {
+          path: 'allUsers',
+          element: <AllUsers/>
+        },
+        // {
+        //   path:'allPets',
+        //   element:
+        // }
       ]
     }
   ]);

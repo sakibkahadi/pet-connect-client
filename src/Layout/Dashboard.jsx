@@ -1,7 +1,9 @@
 import { NavLink, Outlet } from "react-router-dom";
 import Navbar from "../Pages/Home/Navbar/Navbar";
+import useAdmin from "../hooks/useAdmin";
 const Dashboard = () => {
-    const isAdmin = false
+    const [isAdmin] = useAdmin()
+    console.log(isAdmin)
     return (
        <div >
         <div className="pt-10 mb-24">
@@ -42,12 +44,12 @@ const Dashboard = () => {
                     </li>
                     <div className=" divider"></div>
                     <li>
-                        <NavLink to="/dashboard/users">
+                        <NavLink to="/dashboard/allUsers">
                             
                             All Users</NavLink>
                     </li>
                     <li>
-                        <NavLink to="/dashboard/users">
+                        <NavLink to="/dashboard/allPets">
                             
                             All Pets</NavLink>
                     </li>
