@@ -4,6 +4,8 @@ import Banner from "../Banner/Banner";
 import PetsCategory from "../PetsCategory/PetsCategory";
 import CallToAction from "../CallToAction/CallToAction";
 import AboutUs from "../AboutUs/AboutUs";
+import MeetOurExperts from "../MeetOurExperts/MeetOurExperts";
+import FAQ from "../FAQ/FrequentlyAQ";
 
 const Home = () => {
     return (
@@ -23,6 +25,12 @@ const Home = () => {
             </div>
             <div className="mb-12">
                 <AboutUs/>
+            </div>
+            <div className="m-12">
+                <MeetOurExperts/>
+            </div>
+            <div>
+                <FAQ/>
             </div>
         </div>
     );

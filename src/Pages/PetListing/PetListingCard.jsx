@@ -4,17 +4,16 @@ const PetListingCard = ({ pet }) => {
     const { _id, petImage, petName, petAge, location, addedDate    } = pet
     return (
         <div className="card w-full bg-base-100 shadow-xl">
-            <figure><img src={petImage} alt="Shoes" /></figure>
+            <figure><img className="h-[350px] w-full" src={petImage} alt="Shoes" /></figure>
             <div className="card-body">
-                <h2 className="card-title">{petName}</h2>
-                <div>
-                    <span>{petAge}</span>
-                    <span>{location}</span>
+                <h2 className="card-title block text-center text-green-600 ">Pet Name: <span className="text-green-700 font-bold" >{petName}</span></h2>
+                <div className="flex mt-2 mb-2 items-center justify-between gap-5 text-blue-300 font-bold">
+                    <span >Age: {petAge}</span>
+                    <span>Location: {location}</span>
                     
                 </div>
-                <p>{addedDate}</p>
                 <Link to={`/petListing/${_id}`}>
-                <button className="btn btn-success text-white">View Details</button>
+                <button className="btn btn-error  w-full text-white">View Details</button>
                 </Link>
                 
             </div>
