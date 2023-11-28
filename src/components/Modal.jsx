@@ -90,7 +90,7 @@ const Modal = ({_id}) => {
       };
     return (
         <div>
-            <button className="btn" onClick={() => document.getElementById('my_modal_2').showModal()}>Adopt</button>
+            <button className="btn w-full " onClick={() => document.getElementById('my_modal_2').showModal()}>Adopt</button>
             <dialog id="my_modal_2" className="modal" onClick={(e) => e.stopPropagation()}>
                 <div className="modal-box h-[450px]">
                     <form className="card-body" onSubmit={formik.handleSubmit}>
