@@ -3,7 +3,6 @@ import Navbar from "../Pages/Home/Navbar/Navbar";
 import useAdmin from "../hooks/useAdmin";
 const Dashboard = () => {
     const [isAdmin] = useAdmin()
-    console.log(isAdmin)
     return (
        <div >
         <div className="pt-10 mb-24">

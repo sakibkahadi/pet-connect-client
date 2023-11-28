@@ -5,7 +5,7 @@ import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { useLoaderData } from "react-router-dom";
-import { useEffect } from "react";
+
 
 const Update = () => {
 
@@ -109,17 +109,13 @@ const Update = () => {
                     category: values.category.value,
                     location: values.location.value,
                     short_description: values.short_description,
-                    long_description: values.long_description,
-                    // addedDate: addedDate,
-                    // adopted: false,
-                    // email: user?.email
-                }
+                    long_description: values.long_description, }
                 const res = await axiosSecure.put(`/pets/${loadedData._id}`, petInfo)
                 if(res.data.modifiedCount){
                     Swal.fire({
                         position: "center",
                         icon: "success",
-                        title: `${values.petName} is Successfully updated`,
+                        title:  'Pet is Successfully Updated',
                         showConfirmButton: false,
                         timer: 1500
                       });
