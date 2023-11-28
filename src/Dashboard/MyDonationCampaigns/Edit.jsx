@@ -6,14 +6,15 @@ import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { useEffect, useState } from "react";
+import { useLoaderData } from "react-router-dom";
 
-const CreateDonationCampaign = () => {
+const Edit = () => {
     const cloudName = 'doocqhmpu';
     const uploadPreset = 'sakibkk';
     const {user} = useAuth()
     const axiosSecure = useAxiosSecure()
     const [minDate, setMinDate] = useState('');
-
+    const loadedData = useLoaderData()
     useEffect(() => {
       // Get the current date
       const currentDate = new Date();
@@ -52,12 +53,12 @@ const CreateDonationCampaign = () => {
 
     const formik = useFormik({
         initialValues: {
-            petName: '',
-            petImage: '',
-            maxDonation: "",
-            lastDate: minDate,
-            short_description: '',
-            long_description: '',
+            petName: loadedData.petName,
+            petImage: loadedData.petImage,
+            maxDonation: loadedData.maxDonation,
+            lastDate: loadedData.lastDate,
+            short_description: loadedData.short_description,
+            long_description: loadedData.long_description,
 
         },
         validate: (values) => {
@@ -103,19 +104,15 @@ const CreateDonationCampaign = () => {
                     petName: values.petName,
                     email: user?.email
                 }
-                const res = await axiosSecure.post('/donationCampaigns', donationCampaignInfo)
-                console.log(res.data)
-                if (res.data.insertedId) {
-                    formik.resetForm();
-                    document.getElementById('petImage').value = '';
-                    document.getElementById('maxDonation').value = null;
+                const res = await axiosSecure.put(`/donationCampaigns/${loadedData._id}`, donationCampaignInfo)
+                if(res.data.modifiedCount){
                     Swal.fire({
                         position: "center",
                         icon: "success",
-                        title: "Donation Campaign is Added",
+                        title:  'Donation is Successfully Updated',
                         showConfirmButton: false,
                         timer: 1500
-                    });
+                      });
                 }
                 
             }
@@ -125,7 +122,7 @@ const CreateDonationCampaign = () => {
     return (
         <div>
             <div className="font-italic">
-                <MainTitle heading="Donation Campaign" />
+                <MainTitle heading="Edit Donation Campaign" />
             </div>
 
             <form className="card-body" onSubmit={formik.handleSubmit}>
@@ -247,4 +244,4 @@ const CreateDonationCampaign = () => {
     );
 };
 
-export default CreateDonationCampaign;
+export default Edit;

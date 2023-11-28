@@ -6,6 +6,7 @@ import { FaEdit } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import usePet from "../../hooks/usePet";
 import Swal from "sweetalert2";
+import Title from "../../components/Title";
 
 
 
@@ -66,7 +67,8 @@ const MyAddedPet = () => {
     return (
         <div>
             <div className="font-italic"><MainTitle heading="My Added Pets" /></div>
-            <div className="overflow-x-auto">
+            {
+                pets.length > 0 && <div className="overflow-x-auto">
                 <table className="table">
                     {/* head */}
                     <thead>
@@ -118,6 +120,11 @@ const MyAddedPet = () => {
 
                 </table>
             </div>
+            }
+            {
+                pets.length === 0 && <div className="mt-12"><Title subHeading="You Have Not Added Any Pet Yet"/></div>
+            }
+            
         </div>
     );
 };

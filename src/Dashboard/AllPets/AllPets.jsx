@@ -11,7 +11,7 @@ import { useState } from "react";
 
 const AllPets = () => {
     const axiosSecure = useAxiosSecure()
-    const [status, setStatus] = useState(false)
+  
     const { data: pets = [], refetch } = useQuery({
         queryKey: ['pets'],
         queryFn: async () => {
@@ -36,7 +36,7 @@ const AllPets = () => {
                         if (res.data.deletedCount > 0) {
                             Swal.fire({
                                 title: "Deleted!",
-                                text: "pet is Deleted Successfully",
+                                text: "Pet is Deleted Successfully",
                                 icon: "success"
                             });
                             refetch()

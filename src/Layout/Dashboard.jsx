@@ -3,14 +3,15 @@ import Navbar from "../Pages/Home/Navbar/Navbar";
 import useAdmin from "../hooks/useAdmin";
 const Dashboard = () => {
     const [isAdmin] = useAdmin()
+
     return (
        <div >
         <div className="pt-10 mb-24">
             <Navbar ></Navbar>
             </div>
-         <div className="md:flex">
-            <div className="md:w-64 md:min-h-screen  bg-cyan-600">
-                <ul className=" text-black font-bold flex md:flex-col gap-6 flex-wrap justify-center p-4">
+         <div className="lg:flex">
+            <div className="lg:w-64 lg:min-h-screen  bg-cyan-600">
+                <ul className=" text-black font-bold flex lg:flex-col gap-6 flex-wrap justify-center p-4">
                     {
                         isAdmin ? <> <li>
                         <NavLink to="/dashboard/addPet">
@@ -53,7 +54,7 @@ const Dashboard = () => {
                             All Pets</NavLink>
                     </li>
                     <li>
-                        <NavLink to="/dashboard/users">
+                        <NavLink to="/dashboard/allDonations">
                             
                             All Donations</NavLink>
                     </li>

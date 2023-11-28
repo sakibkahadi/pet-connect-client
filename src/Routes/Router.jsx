@@ -15,6 +15,11 @@ import PetListing from "../Pages/PetListing/PetListing";
 import PetDetails from "../Pages/PetListing/PetDetails";
 import AllUsers from "../Dashboard/AllUsers/AllUsers";
 import AllPets from "../Dashboard/AllPets/AllPets";
+import Edit from "../Dashboard/MyDonationCampaigns/Edit";
+import AllDonation from "../Dashboard/AllDonation/AllDonation";
+import AdoptionRequest from "../Dashboard/AdoptionRequest/AdoptionRequest";
+import MyDonation from "../Dashboard/MyDonation/MyDonation";
+import DonationCampaigns from "../Pages/DonationCampaigns/DonationCampaigns";
 
 
 const Router = createBrowserRouter([
@@ -44,6 +49,10 @@ const Router = createBrowserRouter([
           path: '/petListing/:id',
           element:<PetDetails></PetDetails>
           ,loader: ({params})=>fetch(`http://localhost:5000/pets/${params.id}`)
+        },
+        {
+          path:'donationCampaigns',
+          element:<DonationCampaigns/>
         }
       ]
     },
@@ -75,6 +84,14 @@ const Router = createBrowserRouter([
           element:<MyDonationCampaigns/>,
           
         },
+        {
+          path: 'adoptionRequest',
+          element: <AdoptionRequest></AdoptionRequest>
+        },
+        {
+          path:'myDonation',
+          element: <MyDonation/>
+        },
 
         // admins
         {
@@ -85,6 +102,16 @@ const Router = createBrowserRouter([
           path:'allPets',
           element:<AllPets/>,
         },
+        {
+          path: '/dashboard/myDonationCampaign/:id',
+          element:<Edit/>,
+          loader: ({params})=>fetch(`http://localhost:5000/donationCampaigns/${params.id}`)
+
+        },{
+          path: '/dashboard/allDonations',
+          element:<AllDonation></AllDonation>,
+  
+        }
       ]
     }
   ]);
