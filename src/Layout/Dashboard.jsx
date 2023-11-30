@@ -1,11 +1,15 @@
 import { NavLink, Outlet } from "react-router-dom";
 import Navbar from "../Pages/Home/Navbar/Navbar";
 import useAdmin from "../hooks/useAdmin";
+import { Helmet } from "react-helmet-async";
 const Dashboard = () => {
     const [isAdmin] = useAdmin()
 
     return (
        <div >
+         <Helmet>
+                <title>Pet Connect || Dashboard</title>
+            </Helmet>
         <div className="pt-10 mb-24">
             <Navbar ></Navbar>
             </div>

@@ -2,12 +2,13 @@ import { useState } from "react";
 import MainTitle from "../../components/MainTitle";
 import { useEffect } from "react";
 import Card from "./card";
+import { Helmet } from "react-helmet-async";
 
 
 const DonationCampaigns = () => {
     const [campaigns, setCampaigns] = useState([])
     useEffect(()=>{
-        fetch('http://localhost:5000/donationCampaigns')
+        fetch('https://pet-connect-server.vercel.app/donationCampaigns')
         .then(res=>res.json())
         .then(data=>{
             const sortedCampaigns = data.sort((a, b) => {
@@ -20,8 +21,11 @@ const DonationCampaigns = () => {
     },[])
     return (
         <div>
+             <Helmet>
+                <title>Pet Connect || Donation Campaign</title>
+            </Helmet>
             <MainTitle heading="All Donation Campaign"/>
-           <h1 className="text-center text-4xl font-bold text-black">Length: {campaigns.length}</h1>
+          
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
                 {
                     campaigns.map(pet=><Card key={pet._id} pet={pet}/>)

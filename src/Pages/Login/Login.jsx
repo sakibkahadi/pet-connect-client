@@ -9,6 +9,7 @@ import Title from "../../components/Title";
 
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { FaGoogle } from "react-icons/fa";
+import { Helmet } from "react-helmet-async";
 const Login = () => {
     const axiosPublic = useAxiosPublic()
     const [email, setEmail] = useState('');
@@ -24,7 +25,7 @@ const Login = () => {
         login(email, password)
             .then(result => {
                 console.log(result.user)
-                navigate(location?.state ? location.state : '/')
+                navigate(from, { replace: true })
             })
             .catch(() => {
                 return Swal.fire({
@@ -58,6 +59,9 @@ const Login = () => {
 
     return (
         <div className="space-y-5 mt-5 overflow-x-hidden">
+             <Helmet>
+                <title>Pet Connect || Login</title>
+            </Helmet>
             <Title subHeading="Welcome Back. Please Login to your Account"></Title>
             <div className="hero   ">
                 <div className="w-full md:w-1/2">

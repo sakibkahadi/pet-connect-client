@@ -6,7 +6,7 @@ import useAxiosSecure from "./useAxiosSecure";
 const usePet = () => {
     const axiosSecure= useAxiosSecure()
     const{ user} = useAuth()
-    const { data: pets = [], refetch } = useQuery({
+    const { data: pets = [], refetch,  } = useQuery({
         queryKey: ['pets', user.email],
         queryFn: async () => {
             const res = await axiosSecure.get(`/pets?email=${user.email}`)
@@ -15,7 +15,7 @@ const usePet = () => {
 
         }
     })
-    return [pets, refetch]
+    return [pets, refetch, user]
 };
 
 export default usePet;

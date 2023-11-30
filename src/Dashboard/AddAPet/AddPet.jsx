@@ -91,7 +91,7 @@ const AddPet = () => {
             return errors;
         },
         onSubmit: async (values) => {
-            console.log(user?.email)
+            // console.log(user?.email)
             const addedDate = new Date();
             if (values.petImage) {
                 const imageUrl = await uploadImage(values.petImage);

@@ -6,6 +6,7 @@ import CallToAction from "../CallToAction/CallToAction";
 import AboutUs from "../AboutUs/AboutUs";
 import MeetOurExperts from "../MeetOurExperts/MeetOurExperts";
 import FAQ from "../FAQ/FrequentlyAQ";
+import Footer from "../Footer/Footer";
 
 const Home = () => {
     return (
@@ -29,8 +30,11 @@ const Home = () => {
             <div className="m-12">
                 <MeetOurExperts/>
             </div>
-            <div>
+            <div className="m-12">
                 <FAQ/>
+            </div>
+            <div >
+                <Footer></Footer>
             </div>
         </div>
     );

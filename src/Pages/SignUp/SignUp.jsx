@@ -6,6 +6,7 @@ import MainTitle from "../../components/MainTitle";
 import Title from "../../components/Title";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { useForm } from "react-hook-form";
+import { Helmet } from "react-helmet-async";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api =  `https://api.imgbb.com/1/upload?key=${image_hosting_key}`
@@ -77,6 +78,9 @@ const SignUp = () => {
     }
     return (
         <div className="space-y-5 mt-4 overflow-x-hidden ">
+             <Helmet>
+                <title>Pet Connect || Register</title>
+            </Helmet>
             <MainTitle heading="Please Register"/>
             <Title subHeading="Create your account. It's free and only takes a minute."></Title>
             <h2 className="text-sm md:text-xl text-center"></h2>
@@ -85,7 +89,7 @@ const SignUp = () => {
 
                     <div className="card  shadow-2xl bg-base-100">
                         <form onSubmit={handleSubmit(onSubmit)} className="card-body ">
-                            <div className="grid grid-cols-2 gap-2">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                                 <div className="form-control">
                                     <label className="label">
                                         <span className="label-text">Your Name</span>

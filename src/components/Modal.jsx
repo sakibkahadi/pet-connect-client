@@ -14,7 +14,7 @@ const customStyles = {
         height: '46px', // Adjust the height as needed
     }),
 };
-const Modal = ({_id}) => {
+const Modal = ({_id, email}) => {
     const { user } = useAuth()
     const axiosSecure = useAxiosSecure()
 
@@ -54,10 +54,11 @@ const Modal = ({_id}) => {
                 userNumber: values.userNumber,
                 location: values.location.value,
                 petId: _id,
-                status: "pending"
+                status: "false",
+                adminEmail: email
             }
             const res = await axiosSecure.post('/adoptionRequest', adoptionInfo)
-                console.log(res.data)
+                
                 if(res.data.insertedId){
                     formik.resetForm();
                    

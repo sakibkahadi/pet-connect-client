@@ -21,6 +21,8 @@ import AdoptionRequest from "../Dashboard/AdoptionRequest/AdoptionRequest";
 import MyDonation from "../Dashboard/MyDonation/MyDonation";
 import DonationCampaigns from "../Pages/DonationCampaigns/DonationCampaigns";
 import DonationCampaignsDetails from "../Pages/DonationCampaigns/DonationCampaignsDetails";
+import AdminRoute from "./AdminRoute";
+import CategoryPets from "../Pages/CategoryPets/CategoryPets";
 
 
 const Router = createBrowserRouter([
@@ -43,13 +45,18 @@ const Router = createBrowserRouter([
           element:<SignUp></SignUp>
         },
         {
+          path: 'category/:category',
+          element: <CategoryPets></CategoryPets>,
+          loader: ()=>fetch('https://pet-connect-server.vercel.app/pets')
+        },
+        {
           path:'petListing',
           element:<PetListing></PetListing>,
-          loader: ()=>fetch('http://localhost:5000/pets')
+          loader: ()=>fetch('https://pet-connect-server.vercel.app/pets')
         },{
           path: '/petListing/:id',
-          element:<PetDetails></PetDetails>
-          ,loader: ({params})=>fetch(`http://localhost:5000/pets/${params.id}`)
+          element:<PrivateRoute><PetDetails></PetDetails></PrivateRoute>
+          ,loader: ({params})=>fetch(`https://pet-connect-server.vercel.app/pets/${params.id}`)
         },
         {
           path:'donationCampaigns',
@@ -58,8 +65,8 @@ const Router = createBrowserRouter([
         },
         {
           path:'/donationCampaigns/:id',
-          element:<DonationCampaignsDetails/>
-          ,loader: ({params})=>fetch(`http://localhost:5000/donationCampaigns/${params.id}`)
+          element:<PrivateRoute><DonationCampaignsDetails/></PrivateRoute>
+          ,loader: ({params})=>fetch(`https://pet-connect-server.vercel.app/donationCampaigns/${params.id}`)
         }
       ]
     },
@@ -72,51 +79,52 @@ const Router = createBrowserRouter([
         // users 
         {
           path:'addPet',
-          element:<AddPet></AddPet>
+          element:<PrivateRoute><AddPet></AddPet></PrivateRoute>
         },
         {
           path:'myAddedPets',
-          element:<MyAddedPet></MyAddedPet>
+          element:<PrivateRoute><MyAddedPet></MyAddedPet></PrivateRoute>
         },
         {
           path:'/dashboard/myAddedPets/:id',
-          element:<Update/>,
-          loader: ({params})=>fetch(`http://localhost:5000/pets/${params.id}`)
+          element:<PrivateRoute><Update/></PrivateRoute>,
+          loader: ({params})=>fetch(`https://pet-connect-server.vercel.app/pets/${params.id}`)
         },
         {
           path: 'createDonationCampaign',
-          element: <CreateDonationCampaign/>
+          element: <PrivateRoute><CreateDonationCampaign/></PrivateRoute>
         },{
           path:'myDonatioCampaign',
-          element:<MyDonationCampaigns/>,
+          element:<PrivateRoute><MyDonationCampaigns/>,</PrivateRoute>
           
         },
         {
           path: 'adoptionRequest',
-          element: <AdoptionRequest></AdoptionRequest>
+          element:<PrivateRoute><AdoptionRequest></AdoptionRequest></PrivateRoute>
+         
         },
         {
           path:'myDonation',
-          element: <MyDonation/>
+          element: <PrivateRoute><MyDonation/></PrivateRoute>
         },
 
         // admins
         {
           path: 'allUsers',
-          element: <AllUsers/>
+          element: <AdminRoute><AllUsers/></AdminRoute>
         },
         {
           path:'allPets',
-          element:<AllPets/>,
+          element:<AdminRoute><AllPets/></AdminRoute>,
         },
         {
           path: '/dashboard/myDonationCampaign/:id',
-          element:<Edit/>,
-          loader: ({params})=>fetch(`http://localhost:5000/donationCampaigns/${params.id}`)
+          element:<PrivateRoute><Edit/></PrivateRoute>,
+          loader: ({params})=>fetch(`https://pet-connect-server.vercel.app/donationCampaigns/${params.id}`)
 
         },{
           path: '/dashboard/allDonations',
-          element:<AllDonation></AllDonation>,
+          element:<AdminRoute><AllDonation></AllDonation></AdminRoute>,
   
         }
       ]

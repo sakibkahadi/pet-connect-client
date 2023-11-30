@@ -17,12 +17,9 @@ const Navbar = () => {
     }
     const navLinks = <>
         <li><NavLink   to='/'>Home</NavLink></li>
-        {user?.email ?<>
-            <div className="lg:flex">
-            <span><li><NavLink to='/petListing'>Pet Listing</NavLink></li></span>
-            <span> <li><NavLink to='/donationCampaigns'>Donation Campaign</NavLink></li></span>
-        </div>
-        </>:<li><NavLink to='/login'>Log In</NavLink></li> 
+       <li><NavLink to='/petListing'>Pet Listing</NavLink></li>
+          <li><NavLink to='/donationCampaigns'>Donation Campaign</NavLink></li>
+         {!user?.email && <li><NavLink to='/login'>Log In</NavLink></li> 
         }
     </>
     return (
@@ -65,7 +62,7 @@ const Navbar = () => {
                                 <div className="card-body space-y-2 text-[#1dc753] font-bold">
                                     
                                     <NavLink><button  onClick={handleLogOut}>LogOut</button></NavLink>
-                                    {user && isAdmin && <NavLink to="/dashboard/addPet"><button >Dashboard</button></NavLink>  }
+                                    {user && isAdmin && <NavLink to="/dashboard/allPets"><button >Dashboard</button></NavLink>  }
                                     {user && !isAdmin && <NavLink to="/dashboard/myAddedPets"><button >Dashboard</button></NavLink>  }
                                     
 

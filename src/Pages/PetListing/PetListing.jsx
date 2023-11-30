@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import PetListingCard from "./PetListingCard";
 import { FaSearch } from "react-icons/fa";
 import MainTitle from "../../components/MainTitle";
+import { Helmet } from "react-helmet-async";
 
 const PetListing = () => {
     const [filteredData, setFilteredData] = useState([]);
@@ -42,6 +43,9 @@ const PetListing = () => {
 
     return (
         <div>
+             <Helmet>
+                <title>Pet Connect || Pet Listing</title>
+            </Helmet>
             <MainTitle heading="Not Adopted Pets"></MainTitle>
 
             <div className="flex justify-center gap-6 mb-6">

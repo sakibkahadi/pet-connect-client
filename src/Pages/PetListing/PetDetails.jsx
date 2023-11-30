@@ -4,7 +4,7 @@ import Modal from "../../components/Modal";
 
 
 const PetDetails = () => {
-    const { _id, petImage, petName, petAge,  addedDate, category, location, short_description, long_description } = useLoaderData()
+    const { _id,email, petImage, petName, petAge,  addedDate, category, location, short_description, long_description } = useLoaderData()
 
     return (
         <div className="card lg:card-side bg-base-100 shadow-xl">
@@ -28,7 +28,7 @@ const PetDetails = () => {
                 
                 <p className="text-orange-600 font-semibold">Pet Full Info: <span className="font-normal text-black text-sm">{long_description}</span></p>
                <div className="flex justify-center ">
-               <Modal _id={_id}></Modal>
+               <Modal _id={_id} email={email}></Modal>
                </div>
                 
                 

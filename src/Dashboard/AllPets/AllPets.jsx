@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+
 
 
 
@@ -56,7 +56,7 @@ const AllPets = () => {
             cancelButtonColor: "#d33",
             confirmButtonText: "Yes, I want to Change"
         }).then((result) => {
-            console.log(result)
+            
             
             if (result.isConfirmed) {
                 const petInfo ={
