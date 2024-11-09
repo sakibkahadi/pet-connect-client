@@ -8,7 +8,7 @@ const DonationCampaigns = () => {
   const [campaigns, setCampaigns] = useState([]);
 
   useEffect(() => {
-    fetch("https://pet-connect-server.vercel.app/donationCampaigns")
+    fetch("http://localhost:5000/donationCampaigns")
       .then((res) => res.json())
       .then((data) => {
         const sortedCampaigns = data.sort((a, b) => {

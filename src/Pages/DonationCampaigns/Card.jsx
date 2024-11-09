@@ -1,12 +1,7 @@
 import { Link } from "react-router-dom";
 
 const Card = ({ pet, campaigns }) => {
-  const { petImage, petName, maxDonation, addedDate, _id } = pet;
-
-  // Calculate the total donated amount for this pet
-  const donated = campaigns
-    .filter((campaign) => campaign.petId === _id) // Adjust based on campaign structure
-    .reduce((total, campaign) => total + campaign.donatedAmount, 0);
+  const { petImage, petName, maxDonation, donation, addedDate, _id } = pet;
 
   return (
     <div className="card bg-base-100 shadow-xl">
@@ -18,10 +13,11 @@ const Card = ({ pet, campaigns }) => {
           Pet Name: <span className="text-green-700 font-bold">{petName}</span>
         </h2>
         <h2 className="card-title text-gray-500">
-          Maximum Amount: <span className="font-bold ">$ {maxDonation}</span>
+          Maximum Amount: <span className="font-bold ">$ {donation}</span>
         </h2>
         <h2 className="card-title text-gray-500">
-          Donated Amount: <span className="font-bold ">$ {donated}</span>
+          Donated Amount:{" "}
+          <span className="font-bold ">$ {donation - maxDonation}</span>
         </h2>
 
         <Link

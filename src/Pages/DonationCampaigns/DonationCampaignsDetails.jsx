@@ -11,8 +11,10 @@ const DonationCampaignsDetails = () => {
     maxDonation,
     petImage,
     petName,
+    donation,
     _id,
   } = useLoaderData();
+  const [remaining, setRemaining] = useState(maxDonation);
 
   const [remainingCampaigns, setRemainingCampaigns] = useState([]);
   const dataLocation = useLocation();
@@ -26,7 +28,7 @@ const DonationCampaignsDetails = () => {
       setRemainingCampaigns(scanCampaigns);
     }
   }, [filteredData, _id]);
-  console.log(filteredData);
+
   return (
     <div>
       {/* Main Campaign Details */}
@@ -39,7 +41,7 @@ const DonationCampaignsDetails = () => {
             Name: <span className="font-bold">{petName}</span>
           </h2>
           <h2 className="card-title text-gray-500">
-            Maximum Donation: $<span className="font-bold">{maxDonation}</span>
+            Remaining: $<span className="font-bold">{remaining}</span>
           </h2>
           <div>
             <span className="font-bold">
@@ -59,7 +61,12 @@ const DonationCampaignsDetails = () => {
             </span>
           </p>
           <div className="flex justify-center">
-            <DonationModal _id={_id} email={email} maxDonation={maxDonation} />
+            <DonationModal
+              setRemaining={setRemaining}
+              _id={_id}
+              email={email}
+              maxDonation={maxDonation}
+            />
           </div>
         </div>
       </div>

@@ -95,6 +95,7 @@ const CreateDonationCampaign = () => {
         const donationCampaignInfo = {
           petImage: imageUrl,
           maxDonation: values.maxDonation,
+          donation: values.maxDonation,
           lastDate: values.lastDate,
           short_description: values.short_description,
           long_description: values.long_description,

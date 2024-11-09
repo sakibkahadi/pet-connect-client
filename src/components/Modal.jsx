@@ -78,7 +78,7 @@ const Modal = ({ _id, email }) => {
   return (
     <div>
       <button
-        className="btn w-full "
+        className="btn w-full btn-success "
         onClick={() => document.getElementById("my_modal_2").showModal()}
       >
         Adopt

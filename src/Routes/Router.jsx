@@ -24,111 +24,169 @@ import DonationCampaignsDetails from "../Pages/DonationCampaigns/DonationCampaig
 import AdminRoute from "./AdminRoute";
 import CategoryPets from "../Pages/CategoryPets/CategoryPets";
 
-
 const Router = createBrowserRouter([
-    {
-      path: "/",
-      element: <MainLayout/>,
-      errorElement:<ErrorPage></ErrorPage>,
-      children:[
-        {
-          path:"/",
-          element: <Home></Home>
-        },
+  {
+    path: "/",
+    element: <MainLayout />,
+    errorElement: <ErrorPage></ErrorPage>,
+    children: [
+      {
+        path: "/",
+        element: <Home></Home>,
+      },
 
-        {
-          path:'login',
-          element: <Login></Login>
-        },
-        {
-          path:'signUp',
-          element:<SignUp></SignUp>
-        },
-        {
-          path: 'category/:category',
-          element: <CategoryPets></CategoryPets>,
-          loader: ()=>fetch('https://pet-connect-server.vercel.app/pets')
-        },
-        {
-          path:'petListing',
-          element:<PetListing></PetListing>,
-          loader: ()=>fetch('https://pet-connect-server.vercel.app/pets')
-        },{
-          path: '/petListing/:id',
-          element:<PrivateRoute><PetDetails></PetDetails></PrivateRoute>
-          ,loader: ({params})=>fetch(`https://pet-connect-server.vercel.app/pets/${params.id}`)
-        },
-        {
-          path:'donationCampaigns',
-          element:<DonationCampaigns/>,
-          
-        },
-        {
-          path:'/donationCampaigns/:id',
-          element:<PrivateRoute><DonationCampaignsDetails/></PrivateRoute>
-          ,loader: ({params})=>fetch(`https://pet-connect-server.vercel.app/donationCampaigns/${params.id}`)
-        }
-      ]
-    },
-    //dashboard
-    {
-      path:"/dashboard",
-      element:<PrivateRoute> <Dashboard/></PrivateRoute> ,
-      errorElement:<ErrorPage/>,
-      children:[
-        // users 
-        {
-          path:'addPet',
-          element:<PrivateRoute><AddPet></AddPet></PrivateRoute>
-        },
-        {
-          path:'myAddedPets',
-          element:<PrivateRoute><MyAddedPet></MyAddedPet></PrivateRoute>
-        },
-        {
-          path:'/dashboard/myAddedPets/:id',
-          element:<PrivateRoute><Update/></PrivateRoute>,
-          loader: ({params})=>fetch(`https://pet-connect-server.vercel.app/pets/${params.id}`)
-        },
-        {
-          path: 'createDonationCampaign',
-          element: <PrivateRoute><CreateDonationCampaign/></PrivateRoute>
-        },{
-          path:'myDonatioCampaign',
-          element:<PrivateRoute><MyDonationCampaigns/>,</PrivateRoute>
-          
-        },
-        {
-          path: 'adoptionRequest',
-          element:<PrivateRoute><AdoptionRequest></AdoptionRequest></PrivateRoute>
-         
-        },
-        {
-          path:'myDonation',
-          element: <PrivateRoute><MyDonation/></PrivateRoute>
-        },
+      {
+        path: "login",
+        element: <Login></Login>,
+      },
+      {
+        path: "signUp",
+        element: <SignUp></SignUp>,
+      },
+      {
+        path: "category/:category",
+        element: <CategoryPets></CategoryPets>,
+        loader: () => fetch("http://localhost:5000/pets"),
+      },
+      {
+        path: "petListing",
+        element: <PetListing></PetListing>,
+        loader: () => fetch("http://localhost:5000/pets"),
+      },
+      {
+        path: "/petListing/:id",
+        element: (
+          <PrivateRoute>
+            <PetDetails></PetDetails>
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/pets/${params.id}`),
+      },
+      {
+        path: "donationCampaigns",
+        element: <DonationCampaigns />,
+      },
+      {
+        path: "/donationCampaigns/:id",
+        element: (
+          <PrivateRoute>
+            <DonationCampaignsDetails />
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/donationCampaigns/${params.id}`),
+      },
+    ],
+  },
+  //dashboard
+  {
+    path: "/dashboard",
+    element: (
+      <PrivateRoute>
+        {" "}
+        <Dashboard />
+      </PrivateRoute>
+    ),
+    errorElement: <ErrorPage />,
+    children: [
+      // users
+      {
+        path: "addPet",
+        element: (
+          <PrivateRoute>
+            <AddPet></AddPet>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "myAddedPets",
+        element: (
+          <PrivateRoute>
+            <MyAddedPet></MyAddedPet>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/myAddedPets/:id",
+        element: (
+          <PrivateRoute>
+            <Update />
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/pets/${params.id}`),
+      },
+      {
+        path: "createDonationCampaign",
+        element: (
+          <PrivateRoute>
+            <CreateDonationCampaign />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "myDonatioCampaign",
+        element: (
+          <PrivateRoute>
+            <MyDonationCampaigns />,
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "adoptionRequest",
+        element: (
+          <PrivateRoute>
+            <AdoptionRequest></AdoptionRequest>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "myDonation",
+        element: (
+          <PrivateRoute>
+            <MyDonation />
+          </PrivateRoute>
+        ),
+      },
 
-        // admins
-        {
-          path: 'allUsers',
-          element: <AdminRoute><AllUsers/></AdminRoute>
-        },
-        {
-          path:'allPets',
-          element:<AdminRoute><AllPets/></AdminRoute>,
-        },
-        {
-          path: '/dashboard/myDonationCampaign/:id',
-          element:<PrivateRoute><Edit/></PrivateRoute>,
-          loader: ({params})=>fetch(`https://pet-connect-server.vercel.app/donationCampaigns/${params.id}`)
+      // admins
+      {
+        path: "allUsers",
+        element: (
+          <AdminRoute>
+            <AllUsers />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "allPets",
+        element: (
+          <AdminRoute>
+            <AllPets />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/myDonationCampaign/:id",
+        element: (
+          <PrivateRoute>
+            <Edit />
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/donationCampaigns/${params.id}`),
+      },
+      {
+        path: "/dashboard/allDonations",
+        element: (
+          <AdminRoute>
+            <AllDonation></AllDonation>
+          </AdminRoute>
+        ),
+      },
+    ],
+  },
+]);
 
-        },{
-          path: '/dashboard/allDonations',
-          element:<AdminRoute><AllDonation></AllDonation></AdminRoute>,
-  
-        }
-      ]
-    }
-  ]);
- 
-  export default Router;
+export default Router;
