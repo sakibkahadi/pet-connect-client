@@ -102,6 +102,7 @@ const CreateDonationCampaign = () => {
           addedDate: addedDate,
           petName: values.petName,
           email: user?.email,
+          status: "active",
         };
         const res = await axiosSecure.post(
           "/donationCampaigns",
