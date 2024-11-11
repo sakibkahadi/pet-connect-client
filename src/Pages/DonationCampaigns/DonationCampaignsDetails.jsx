@@ -12,6 +12,7 @@ const DonationCampaignsDetails = () => {
     petImage,
     petName,
     donation,
+    status,
     _id,
   } = useLoaderData();
   const [remaining, setRemaining] = useState(maxDonation);
@@ -61,12 +62,18 @@ const DonationCampaignsDetails = () => {
             </span>
           </p>
           <div className="flex justify-center">
-            <DonationModal
-              setRemaining={setRemaining}
-              _id={_id}
-              email={email}
-              maxDonation={maxDonation}
-            />
+            {status === "active" ? (
+              <DonationModal
+                setRemaining={setRemaining}
+                _id={_id}
+                email={email}
+                maxDonation={maxDonation}
+              />
+            ) : (
+              <p className="text-blue-700 font-bold">
+                Donation Campaign is Pause{" "}
+              </p>
+            )}
           </div>
         </div>
       </div>

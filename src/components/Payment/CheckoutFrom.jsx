@@ -1,5 +1,5 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import { useNavigate } from "react-router-dom";
+
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
 import { useEffect, useState } from "react";
@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 
 const CheckoutForm = ({ maxDonation, id, setRemaining }) => {
   // console.log(setRemaining);
-  const navigate = useNavigate();
+
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
 
@@ -77,7 +77,7 @@ const CheckoutForm = ({ maxDonation, id, setRemaining }) => {
 
         if (res.data?.paymentResult?.insertedId) {
           Swal.fire({
-            position: "center",
+            position: "top-right",
             icon: "success",
             title: "Thank you for the payment",
             showConfirmButton: false,

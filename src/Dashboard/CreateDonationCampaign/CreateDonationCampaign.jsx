@@ -185,7 +185,7 @@ const CreateDonationCampaign = () => {
               onChange={formik.handleChange}
               value={formik.values.lastDate}
               placeholder="Pet Age"
-              className="input input-bordered"
+              className="input w-full input-bordered"
             />
             {formik.errors.lastDate && formik.touched.lastDate && (
               <div className="text-red-500">Last Date is required</div>

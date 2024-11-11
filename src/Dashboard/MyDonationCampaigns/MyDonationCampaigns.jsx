@@ -66,7 +66,6 @@ const MyDonationCampaigns = () => {
                 <th className="lg:py-2">Donation Progress</th>
                 <th className="lg:py-2">Edit</th>
                 <th className="lg:py-2">Pause Donation</th>
-                <th className="lg:py-2">View Donator</th>
               </tr>
             </thead>
             <tbody>
@@ -115,9 +114,6 @@ const MyDonationCampaigns = () => {
                           className="text-2xl"
                         />
                       )}
-                    </td>
-                    <td className="lg:py-2">
-                      <FaStreetView className="text-2xl" />
                     </td>
                   </tr>
                 );
